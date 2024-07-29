@@ -1,20 +1,30 @@
-import { useState } from 'react'
+import React, { Suspense } from 'react';
+import { RouterProvider } from '@tanstack/react-router';
+import { Theme } from '@radix-ui/themes';
 
-function App() {
-  const [count, setCount] = useState(0)
+import AuthService from '../core/services/AuthService';
+
+import { router } from './router';
+import '@radix-ui/themes/styles.css';
+import container from '../core/DI/Container';
+import { AuthProvider } from '../fearures/auth/AuthContext';
+
+container.register('AuthService', AuthService);
+
+const App: React.FC = () => {
+  const authServiceInstance = container.resolve<AuthService>('AuthService');
+  console.log('Resolved AuthService instance:', authServiceInstance);
 
   return (
-
-  <div>
-    <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-  </div>
-  </div>
-
-  )
-}
-
-export default App
+    <AuthProvider>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Theme>
+          <div className="form-root">
+            <RouterProvider router={router} />
+          </div>
+        </Theme>
+      </Suspense>
+    </AuthProvider>
+  );
+};
+export default App;
