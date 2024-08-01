@@ -13,7 +13,11 @@ const SignInForm = () => {
   } = useSignInForm();
 
   return (
-    <Form.Root className="form-root" onSubmit={handleSubmit}>
+    <Form.Root
+      data-testid="sign-in-form"
+      className="form-root"
+      onSubmit={handleSubmit}
+    >
       <Form.Field className="form-field" name="email">
         <Flex justify="between" align="baseline">
           <Form.Label className="form-label">Email</Form.Label>

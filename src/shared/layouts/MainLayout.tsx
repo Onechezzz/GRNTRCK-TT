@@ -47,7 +47,9 @@ const MainLayout: FC<PropsWithChildren<unknown>> = ({ children }) => {
           </ToolbarButton>
         )}
       </Toolbar>
-      <main className="flex-grow p-4 bg-cyberBlack max-h-screen">{children}</main>
+      <main className="flex-grow p-4 bg-cyberBlack max-h-screen">
+        {children}
+      </main>
     </div>
   );
 };
